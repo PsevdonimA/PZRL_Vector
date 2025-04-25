@@ -93,12 +93,6 @@ void Vector::pushFront(const ValueType& value)
 
 void Vector::insert(const ValueType& value, size_t pos)
 {
-    bool isk = false;
-    if (_size >= 10402 && _capacity == 20480)
-    {
-        isk = true;
-    }
-    //std::cout << "ok ";
     if (pos > _size)
     {
         throw std::invalid_argument("Cannot insert value: position must be lesser than size.");
@@ -107,24 +101,13 @@ void Vector::insert(const ValueType& value, size_t pos)
     {
         throw std::invalid_argument("Cannot insert value: position cannot be negative.");
     }
-    //std::cout << _size << " " << _capacity << " pos: " << pos << "\n";
     resize(_size + 1);
-    //std::cout << "resize\n";
     for (size_t i = _size; i > pos; i--)
     {
         _data[i] = _data[i-1];
     }
-    if (!isk)
-    {
-        _data[pos] = value;
-    }
-    else
-    {
-        _data[pos] = 0;
-    }
-    //std::cout << "eq\n";
+    _data[pos] = value;
     _size++;
-    //std::cout << _size << " " << _capacity << " pos: " << pos << "\n\n";
 }
 
 void Vector::insert(const ValueType* values, size_t size, size_t pos)
@@ -145,10 +128,8 @@ void Vector::insert(const ValueType* values, size_t size, size_t pos)
     {
         throw std::invalid_argument("Cannot insert values: pointer must not be null.");
     }
-    //std::cout << _multiplicativeCoef << " size: " << size << "\n";
-    std::cout << _size << " " << _capacity << "\n";
     resize(_size + size);
-    for (size_t i = size - 1; i >= 0; i--)
+    for (int i = size - 1; i >= 0; i--)
     {
         insert(values[i], pos);
     }
